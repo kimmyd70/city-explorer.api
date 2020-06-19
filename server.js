@@ -44,7 +44,7 @@ function handleLocation(request, response) {
     response.send(locationData);
   }
   catch (error) {
-    errorHandler('Oops. We\'re confused.', request, response);
+    errorHandler('Oops. We\'re confused. Is that a city?', request, response);
   }
 }
 
@@ -57,24 +57,25 @@ function Location(city, geoData) {
 
 //Does this need to be a loop?
 function handleWeather(request, response) {
-  try {
-    const wxData = require('./data/weather.json');
-    const weatherData = [];
-    wxData.weather.forEach(entry => {
-      weatherData.push(new Weather(entry));
-    });
-    response.send(weatherData);
-  }
-  catch (error) {
-    errorHandler('Oops. We\'re confused.', request, response);
-  }
+  // try {
+//     const wxData = require('./data/weather.json');
+//     const city = request.query.city;
+//     const weatherData = [];
+//     wxData.weather.forEach(wxData => {
+//       weatherData.push(new Weather(wxData));
+//     });
+    response.send('handler entered');
+//   }
+//   catch (error) {
+//     errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
+//   }
 }
 
 //Is the constructor not set up correctly?
 function Weather(city, wxData) {
   this.search_query = city;
   this.time = wxData[0].valid_date;
-  this.forecast = wxData[0].weather.description;
+  // this.forecast = wxData[0].weather.description;
 }
 
 function notFoundHandler(request, response) {
