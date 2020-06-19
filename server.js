@@ -67,7 +67,7 @@ function handleWeather(request, response) {
 //       weatherData.push(new Weather(city,wxData));
 //     });
 //  response.send(weatherData);
-    // response.send('handler entered');
+    response.send('handler entered');
 //   }
 //   catch (error) {
 //     errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
@@ -77,11 +77,8 @@ function handleWeather(request, response) {
 //Is the constructor not set up correctly?
 function Weather(city, wxData) {
   this.search_query = city;
-  // this.time = wxData[0].valid_date;
-  // this.forecast = wxData[0].weather.description;
-  this.time = '7';
-  this.forecast = 'yes';
-  response.send('fake data');
+  this.time = wxData[0].valid_date;
+  this.forecast = wxData[0].weather.description;
 }
 
 //this displays because of movies, trails, etc
