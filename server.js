@@ -55,11 +55,12 @@ function Location(city, geoData) {
   this.longitude = geoData[0].lon;
 }
 
+//Does this need to be a loop?
 function handleWeather(request, response) {
   try {
-    const data = require('./data/weather.json');
+    const wxData = require('./data/weather.json');
     const weatherData = [];
-    data.weather.forEach(entry => {
+    wxData.weather.forEach(entry => {
       weatherData.push(new Weather(entry));
     });
     response.send(weatherData);
@@ -69,9 +70,11 @@ function handleWeather(request, response) {
   }
 }
 
-function Weather(entry) {
-  this.time = entry.data.valid_date;
-  this.forecast = entry.data.weather.description;
+//Is the constructor not set up correctly?
+function Weather(city, wxData) {
+  this.search_query = city;
+  this.time = wxData[0].valid_date;
+  this.forecast = wxData[0].weather.description;
 }
 
 function notFoundHandler(request, response) {
