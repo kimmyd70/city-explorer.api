@@ -23,20 +23,20 @@ Estimate of time needed to complete: 30 min
 
 Start time: 8:00
 
-Finish time: _____
+Finish time: 8:35
 
-Actual time needed to complete: _____
+Actual time needed to complete: 35 min
 
 
 ### Trello Card #2--locations
 
 Estimate of time needed to complete: 30 min
 
-Start time: 8:00
+Start time: 8:35
 
-Finish time: _____
+Finish time: 9:09
 
-Actual time needed to complete: _____
+Actual time needed to complete: 34 min
 
 
 ### Trello Card #3--weather

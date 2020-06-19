@@ -55,25 +55,25 @@ function Location(city, geoData) {
   this.longitude = geoData[0].lon;
 }
 
-// function handleWeather(request, response) {
-//   try {
-//     const data = require('./data/weather.json');
-//     const weatherData = [];
-//     data.nearby_restaurants.forEach(entry => {
-//       weatherData.push(new Weather(entry));
-//     });
-//     response.send(weatherData);
-//   }
-  // catch (error) {
-//     errorHandler('Oops. We\'re confused.', request, response);
-//   }
-// }
+function handleWeather(request, response) {
+  try {
+    const data = require('./data/weather.json');
+    const weatherData = [];
+    data.nearby_restaurants.forEach(entry => {
+      weatherData.push(new Weather(entry));
+    });
+    response.send(weatherData);
+  }
+  catch (error) {
+    errorHandler('Oops. We\'re confused.', request, response);
+  }
+}
 
-// function Weather(entry) {
-//   this.restaurant = entry.restaurant.name;
-//   this.cuisines = entry.restaurant.cuisines;
-//   this.locality = entry.restaurant.location.locality;
-// }
+function Weather(entry) {
+  this.time = entry.restaurant.name;
+  this.cuisines = entry.restaurant.cuisines;
+  this.locality = entry.restaurant.location.locality;
+}
 
 function notFoundHandler(request, response) {
   response.status(404).send('Ummm....');
