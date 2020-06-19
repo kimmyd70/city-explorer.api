@@ -70,9 +70,8 @@ function handleWeather(request, response) {
 }
 
 function Weather(entry) {
-  this.time = entry.restaurant.name;
-  this.cuisines = entry.restaurant.cuisines;
-  this.locality = entry.restaurant.location.locality;
+  this.time = entry.data.valid_date;
+  this.forecast = entry.data.weather.description;
 }
 
 function notFoundHandler(request, response) {
