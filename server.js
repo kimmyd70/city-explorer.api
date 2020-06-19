@@ -29,6 +29,7 @@ function aboutUsHandler(request, response) {
 
 // API Routes
 app.get('/location', handleLocation);
+//this is working
 app.get('/weather', handleWeather);
 
 app.use('*', notFoundHandler);
@@ -62,8 +63,9 @@ function handleWeather(request, response) {
 //     const city = request.query.city;
 //     const weatherData = [];
 //     wxData.weather.forEach(wxData => {
-//       weatherData.push(new Weather(wxData));
+//       weatherData.push(new Weather(city,wxData));
 //     });
+//  response.send(weatherData);
     response.send('handler entered');
 //   }
 //   catch (error) {
@@ -75,9 +77,10 @@ function handleWeather(request, response) {
 function Weather(city, wxData) {
   this.search_query = city;
   this.time = wxData[0].valid_date;
-  // this.forecast = wxData[0].weather.description;
+  this.forecast = wxData[0].weather.description;
 }
 
+//this displays because of movies, trails, etc
 function notFoundHandler(request, response) {
   response.status(404).send('Ummm....');
 }
