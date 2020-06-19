@@ -59,7 +59,7 @@ function handleWeather(request, response) {
   try {
     const data = require('./data/weather.json');
     const weatherData = [];
-    data.nearby_restaurants.forEach(entry => {
+    data.weather.forEach(entry => {
       weatherData.push(new Weather(entry));
     });
     response.send(weatherData);
