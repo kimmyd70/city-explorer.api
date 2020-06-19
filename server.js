@@ -44,7 +44,7 @@ function handleLocation(request, response) {
     response.send(locationData);
   }
   catch (error) {
-    errorHandler('Oops. We\'re confused.', request, response);
+    errorHandler('Oops. We\'re confused. Is that a city?', request, response);
   }
 }
 
@@ -66,7 +66,7 @@ function handleWeather(request, response) {
     response.send(weatherData);
   }
   catch (error) {
-    errorHandler('Oops. We\'re confused.', request, response);
+    errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
   }
 }
 
