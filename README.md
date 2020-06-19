@@ -45,12 +45,12 @@ Estimate of time needed to complete: 30 min
 
 Start time: 9:09
 
-Finish time: _____
+Finish time: 9:49 +++
 
 Actual time needed to complete: _____
 
 
-### Trello Card #1--errors
+### Trello Card #4--errors
 
 Estimate of time needed to complete: 30 min
 
