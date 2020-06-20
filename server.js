@@ -59,19 +59,19 @@ function Location(city, geoData) {
 
 //Does this need to be a loop?
 function handleWeather(request, response) {
-  // try {
-//     const wxData = require('./data/weather.json');
-//     const city = request.query.city;
-//     const weatherData = [];
-//     wxData.weather.forEach(wxData => {
-//       weatherData.push(new Weather(city,wxData));
-//     });
-//  response.send(weatherData);
+  try {
+    const wxData = require('./data/weather.json');
+    const city = request.query.city;
+    const weatherData = [];
+    wxData.forEach(wxData => {
+      weatherData.push(new Weather(city,wxData));
+    });
+ response.send(weatherData);
     response.send('handler entered');
-//   }
-//   catch (error) {
-//     errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
-//   }
+  }
+  catch (error) {
+    errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
+  }
 }
 
 //Is the constructor not set up correctly?
@@ -87,7 +87,11 @@ function notFoundHandler(request, response) {
 }
 
 function errorHandler(error, request, response) {
-  response.status(500).send(error);
+  geoData.forEach(city =>{
+  if (city !== geoData.display_name){
+    response.status(500).send('Sorry...we don\'t have that city');
+  };
+});
 }
 
 
