@@ -9,7 +9,7 @@ const cors = require('cors');
 const { response } = require('express');
 
 // Application Setup
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 
@@ -59,25 +59,25 @@ function Location(city, geoData) {
 
 //Does this need to be a loop?
 function handleWeather(request, response) {
-  // try {
-//     const wxData = require('./data/weather.json');
-//     const city = request.query.city;
-//     const weatherData = [];
-//     wxData.weather.forEach(wxData => {
-//       weatherData.push(new Weather(city,wxData));
-//     });
-//  response.send(weatherData);
-    response.send('handler entered');
-//   }
-//   catch (error) {
-//     errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
-//   }
+  try {
+    const wxData = require('./data/weather.json');
+    const city = request.query.city;
+    const weatherData = [];
+    wxData.forEach(wxData => {
+      weatherData.push(new Weather(city,wxData));
+    });
+ response.send(weatherData);
+    response.status(200).send('handler entered');
+  }
+  catch (error) {
+    errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
+  }
 }
 
 //Is the constructor not set up correctly?
 function Weather(city, wxData) {
   this.search_query = city;
-  this.time = wxData[0].valid_date;
+  this.time = new Date(wxData.datetime).toDateString();
   this.forecast = wxData[0].weather.description;
 }
 
@@ -87,9 +87,12 @@ function notFoundHandler(request, response) {
 }
 
 function errorHandler(error, request, response) {
-  response.status(500).send(error);
+  geoData.forEach(city =>{
+    if (city !== geoData.display_name){
+      response.status(500).send('Sorry...we don\'t have that city');
+    };
+  });
 }
-
 
 
 // Make sure the server is listening for requests
