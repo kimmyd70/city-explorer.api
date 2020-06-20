@@ -9,7 +9,7 @@ const cors = require('cors');
 const { response } = require('express');
 
 // Application Setup
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 
@@ -67,7 +67,7 @@ function handleWeather(request, response) {
       weatherData.push(new Weather(city,wxData));
     });
  response.send(weatherData);
-    response.send('handler entered');
+    response.status(200).send('handler entered');
   }
   catch (error) {
     errorHandler('Oops. We\'re confused. Weather prediction is tricky!', request, response);
@@ -77,7 +77,7 @@ function handleWeather(request, response) {
 //Is the constructor not set up correctly?
 function Weather(city, wxData) {
   this.search_query = city;
-  this.time = wxData[0].valid_date;
+  this.time = new Date(wxData.datetime).toDateString();
   this.forecast = wxData[0].weather.description;
 }
 
@@ -88,12 +88,11 @@ function notFoundHandler(request, response) {
 
 function errorHandler(error, request, response) {
   geoData.forEach(city =>{
-  if (city !== geoData.display_name){
-    response.status(500).send('Sorry...we don\'t have that city');
-  };
-});
+    if (city !== geoData.display_name){
+      response.status(500).send('Sorry...we don\'t have that city');
+    };
+  });
 }
-
 
 
 // Make sure the server is listening for requests
