@@ -35,7 +35,6 @@ app.get('/weather', (request, response) => {
     let wxObj = new Weather(data.weather.description, data.datetime);
     weatherData.push(wxObj);
   });
-  console.log(weatherData);
   response.status(200).send(weatherData);
 });
 
@@ -53,19 +52,6 @@ app.use((error, request, response) => {
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`I\'m listening on ${PORT}`));
 
-// HELPER FUNCTIONS
-
-// function handleLocation(request, response) {
-//   // try {
-//     const geoData = require('./data/location.json').data[0];
-//     const city = request.query.city;
-//     const locationData = new Location(city, geoData);
-//     response.send(locationData);
-//   }
-//   // catch (error) {
-//   //   errorHandler('Oops. We\'re confused. Is that a city?', request, response);
-//   // }
-// // }
 
 function Location(obj) {
   this.formatted_query = obj.display_name;
@@ -73,25 +59,7 @@ function Location(obj) {
   this.longitude = obj.lon;
 }
 
-// //Does this need to be a loop?
-// function handleWeather(request, response) {
-//   try {
-//     let wxData = require('./data/weather.json').data[0];
-//     const city = request.query.city;
-//     const weatherData = [];
-//     wxData.forEach(data => {
-//       let wxObj = new Weather(data.weather.description, data.datetime);
-//       weatherData.push(wxObj);
-//     });
-// //  response.status(200).send(weatherData);
-//     response.status(200).send('handler entered');
-//   }
-//   catch (error) {
-//     response.status(500).send('Oops. We\'re confused. Weather prediction is tricky!', request, response);
-//   }
-// }
 
-//Is the constructor not set up correctly?
 function Weather(forecast, time) {
   this.forecast = forecast;
   this.time = new Date(time).toDateString();
