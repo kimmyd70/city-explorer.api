@@ -30,16 +30,6 @@ app.get('/location', (request,response) => {
   let city = request.query.city;
 
   let API = `https://us1.locationiq.com/v1/search.php?key=${GEOCODE}&q=${city}&format=json`;
-  // Query String--use this to be sure the API keys are not 
-  // readily accessible in the API URL
-
-  // let city = request.query.city;
-
-  // let queryObject = {
-  //   key: GEOCODE,
-  //   q: request.query.city,
-  //   format: 'json'
-  // }
 
   superagent.get(API)
     // .query(queryObject)
@@ -55,41 +45,41 @@ app.get('/location', (request,response) => {
     .catch(() => {
       response.status(500).send(console.log('Oops.  We\'re confused. Is that a city?'));
     });
-  // request.query.city is what the user typed in...
-  // If the database has it ...
-  // if (locations[request.query.city]) {
-  //   console.log('we have it already...')
-  //   response.status(200).send(locations[request.query.city]);
-  // }
-  // else {
-  //   console.log('going to get it');
-  //   locDataFromAPI(request.query.city, response);
-  // }
-
 });
 
 
 app.get('/weather', (request, response) => {
-  let wxData = require('./data/weather.json').data;
-  let weatherData = [];
-  wxData.forEach(data => {
-    let wxObj = new Weather(data.weather.description, data.datetime);
-    weatherData.push(wxObj);
+  let coords = {
+    lat: request.query.latitude,
+    lon: request.query.longitude
+  };
+
+  let API = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coords.lat}&lon=${coords.lon}&key=${WEATHERBIT}`;
+
+  superagent.get(API)
+  .then ((weather)=>{
+    let wxData = weather.body.data.map(obj => {
+      return new Weather(obj.weather.description, obj.datetime);
+
+    });
+    response.status(200).json(wxData);
+  })
+  .catch (() => {
+    response.status(500).send(console.log('Sorry.  Weather prediction is tricky!'));
   });
-  response.status(200).send(weatherData);
 });
 
 app.get('/trails', handleTrails);
 
-// app.use('*', (request, response) => {
-//   response.status(404).send('Ummm....');
-// });
+app.use('*', (request, response) => {
+  response.status(404).send('Ummm....');
+});
 
 
-// app.use((error, request, response) => {
-//   response.send('Sorry...we\'re confused');
+app.use((error, request, response) => {
+  response.send('Sorry...we\'re confused');
     
-// });
+});
 
 
 // Make sure the server is listening for requests
