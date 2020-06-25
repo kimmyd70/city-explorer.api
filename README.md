@@ -122,9 +122,52 @@ Actual time needed to complete: 1 hr 2min (with location and data format)
 
 Estimate of time needed to complete: 30 min
 
-Start time: 2:55
+Start time: 10:45
 
-Finish time: _____
+Finish time: 11:45
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hour....but it felt like soooo much more chasing down
+a stupid error!
+
+## Lab 08
+
+### Trello Card #1--database setup
+
+Estimate of time needed to complete: 
+
+Start time:
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Trello Card #2--check if location exists in dbase
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Trello Card #3--deploy dbase to heroku 
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Trello Card #4--Stretch: check if API call already made and data in dbase
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
 
