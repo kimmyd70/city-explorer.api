@@ -137,4 +137,3 @@ app.use((error, request, response, next) => {
   response.status(500).send('Sorry, something went wrong');
 });
 
-© 2020 GitHub, Inc.

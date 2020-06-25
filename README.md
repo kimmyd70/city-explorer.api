@@ -90,33 +90,33 @@ Actual time needed to complete: this was done on first day of weather troublesho
 
 ### Trello Card #1--data formatting
 
-Estimate of time needed to complete: 30 min
+Estimate of time needed to complete: 15 min
 
-Start time: 8:00
+Start time: 9:40
 
-Finish time: _____
+Finish time: 10:38
 
-Actual time needed to complete: _____
+Actual time needed to complete: 58 min (with location and weather)
 
 ### Trello Card #2--user-input location
 
 Estimate of time needed to complete: 30 min
 
-Start time: 2:55
+Start time: 9:40
 
-Finish time: _____
+Finish time: 10:38
 
-Actual time needed to complete: _____
+Actual time needed to complete: 58 min (with data format and weather)
 
 ### Trello Card #3--weather any location
 
 Estimate of time needed to complete: 30 min
 
-Start time: 2:55
+Start time: 9:40
 
-Finish time: _____
+Finish time: 10:42
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hr 2min (with location and data format)
 
 ### Trello Card #4--Trails
 

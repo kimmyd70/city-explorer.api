@@ -12,7 +12,7 @@ const superagent = require('superagent');
 const PORT = process.env.PORT || 3000;
 const GEOCODE = process.env.GEOCODE;
 const WEATHERBIT = process.env.WEATHERBIT;
-const TRAILS = process.env.TRAILS;
+const HIKING = process.env.HIKING;
 
 // instance of express and bring in cors (security/permission "key")
 const app = express();
@@ -69,8 +69,31 @@ app.get('/weather', (request, response) => {
   });
 });
 
-app.get('/trails', handleTrails);
+app.get('/trails', (request,response) => {
+  const coords = {
+    lat: request.query.latitude,
+    lon: request.query.longitude
+  };
+  let API = `https://www.hikingproject.com/data/get-trails?lat=${coords.lat}&lon=${coords.lon}&maxDistance=10&key=${HIKING}`;
 
+  superagent.get(API)
+    .then(trail =>{
+      let trails = trail.body.trails.map(obj => {
+
+        //build contract obj with constructor
+        return new Trails(obj.name,obj.location,obj.length, obj.stars, obj.starVotes, obj.summary, obj.url, obj.condition_status, obj.conditionDate);
+
+      });
+      response.status(200).json(trails);
+    })
+    .catch(() => {
+      response.status(500).send('Sorry, trail data is not available.');
+    });
+
+
+});
+
+//displays because Yelp and Movies are not built
 app.use('*', (request, response) => {
   response.status(404).send('Ummm....');
 });
@@ -99,50 +122,32 @@ function Weather(forecast, time) {
   this.time = new Date(time).toDateString();
 }
 
-function Trails(obj) {
-  this.name = obj.name;
-  this.location = obj.location;
-  this.length = obj.length;
-  this.stars = obj.stars;
-  this.star_votes = obj.star_votes;
-  this.summary = obj.summary;
-  this.trail_url = obj.url;
-  this.conditions = obj.conditionDetails;
-  this.condition_date = obj.conditionDate; // I need to take this item, filter it, and then return either side to its respected variable
-  this.condition_time = obj.conditionDate;
+// function Trails(obj) {
+//   this.name = obj.name;
+//   this.location = obj.location;
+//   this.length = obj.length;
+//   this.stars = obj.stars;
+//   this.star_votes = obj.star_votes;
+//   this.summary = obj.summary;
+//   this.trail_url = obj.trail_url;
+//   this.conditions = obj.conditions;
+//   this.condition_date = new Date(obj.conditionDate.slice(0,10)).toDateString();
+//   this.condition_time = obj.conditionDate.slice(11,19);
+// }
+
+//Help from Ashley Casimir to fix constructor
+
+function Trails (name, location, length, stars, star_votes, summary, trail_url, conditions, conditionDate){
+  this.name = name;
+  this.location = location;
+  this.length = length;
+  this.stars = stars;
+  this.star_votes = star_votes;
+  this.summary = summary;
+  this.trail_url = trail_url;
+  this.conditions = conditions;
+  this.condition_date = new Date(conditionDate.slice(0,10)).toDateString();
+  this.condition_time = conditionDate.slice(11,19);
 }
 
-
-
-
-
-
-function locDataFromAPI(city, response) {
-
-}
-
-function handleTrails(request, response) {
-  const coordinates = {
-    lat: request.query.latitude,
-    lon: request.query.longitude,
-  };
-  const API = `https://www.hikingproject.com/data/get-trails?key=${process.env.TRAIL_API_KEY}&lat=${coordinates.lat}&lon=${coordinates.lon}&maxDistance=10`;
-
-  superagent
-    .get(API)
-    .then((dataResults) => {
-      let results = dataResults.body.trails.map((result) => {
-        return new Trails(result);
-      });
-      response.status(200).json(results);
-    })
-    .catch((err) => {
-      response.status(500).send('Trail data is not available');
-    });
-}
-
-//this displays because of movies, trails, etc
-function notFoundHandler(request, response) {
-  response.status(404).send('Ummm....');
-}
 
