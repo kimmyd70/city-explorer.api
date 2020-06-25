@@ -1,25 +1,29 @@
 # City-Explorer
 
 **Author**: Kim Damalas
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 3.0.0 (Initial, Lab 6, Lab 7 versions)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+In general, City Explorer provides the user a way to search a city for pertinent info.For my portion, this project builds the back-end data capture and transfer to support front-end requests
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+The user must have a server.js built that fulfills the front-end requests.  The user alsoneeds the code deployed to heroku or other platform unless he/she launches a localhost node server to run the code on the local machine. Don't forget to install all the dependency files in npm install and check installation inside package.json
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+This project uses constructors to build data objects and  `app.get()` methods to handle data requests from the front end. It started with a javascript server accessing "fake data" in .json files.  We then moved to accessing data on open-source APIs.  Finally, we added an SQL database to provide persisting data that had already been captured once with an API search.
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
+Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.
+06-18-20 9:09pm - Application now has a fully-functional express server, with a GET route for the location resource.
+
+06-24-20 2:50pm - Application now has a fully-functional  GET route for the weather and error handling. (all Lab 6 Trello cards complete)
+
+06-24-20 ..... working on refactor for API data and incorporating superagent proxy
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+I heavily relied on John's demo code to build the initial server including locations. I heavily relied on Ray's in-class demo to fix my weather route. I relied on the code review of Chris Bortel's server to inform the API build
+
 
 lab-06-repository
    ├── data
@@ -65,61 +69,105 @@ Estimate of time needed to complete: 30 min
 
 Start time: 9:09
 
-Finish time: 9:49 +++
+Finish time: 9:49 +++ (2 more days in spurts)
 
-Actual time needed to complete: _____
+Actual time needed to complete: Oh goodness so much time!! And there was 
+much celebrating when it worked.
 
 
 ### Trello Card #4--errors
 
 Estimate of time needed to complete: 30 min
 
-Start time: 8:00
+Start time: ??
 
-Finish time: _____
+Finish time: ??
 
-Actual time needed to complete: _____
+Actual time needed to complete: this was done on first day of weather troubleshooting
 
 
 ## Lab 07
 
 ### Trello Card #1--data formatting
 
-Estimate of time needed to complete: 30 min
+Estimate of time needed to complete: 15 min
 
-Start time: 8:00
+Start time: 9:40
 
-Finish time: _____
+Finish time: 10:38
 
-Actual time needed to complete: _____
+Actual time needed to complete: 58 min (with location and weather)
 
 ### Trello Card #2--user-input location
 
 Estimate of time needed to complete: 30 min
 
-Start time: 8:00
+Start time: 9:40
 
-Finish time: _____
+Finish time: 10:38
 
-Actual time needed to complete: _____
+Actual time needed to complete: 58 min (with data format and weather)
 
 ### Trello Card #3--weather any location
 
 Estimate of time needed to complete: 30 min
 
-Start time: 8:00
+Start time: 9:40
 
-Finish time: _____
+Finish time: 10:42
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hr 2min (with location and data format)
 
 ### Trello Card #4--Trails
 
 Estimate of time needed to complete: 30 min
 
-Start time: 8:00
+Start time: 10:45
 
-Finish time: _____
+Finish time: 11:45
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hour....but it felt like soooo much more chasing down
+a stupid error!
+
+## Lab 08
+
+### Trello Card #1--database setup
+
+Estimate of time needed to complete: 
+
+Start time:
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Trello Card #2--check if location exists in dbase
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Trello Card #3--deploy dbase to heroku 
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Trello Card #4--Stretch: check if API call already made and data in dbase
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
 
