@@ -7,6 +7,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
+const pg = require('pg');
 
 // Application Setup
 const PORT = process.env.PORT || 3000;
@@ -16,10 +17,33 @@ const HIKING = process.env.HIKING;
 
 // instance of express and bring in cors (security/permission "key")
 const app = express();
+const client = new pg.Client(process.env.DATABASE_URL);
 app.use(cors());
+
+//check to see if client is connected
+client.connect()
+  .then(() => console.log('we are in business'))
+  .catch((error) => console.error('problems!', error));
 
 //Global vars
 let locations = {};
+
+app.get('/add', (request, response) =>{
+//get info from the front end user input
+const city = request.query.display_name;
+
+//create safe query with variables -- very useful if username/pword, etc
+const safeQuery = [city];
+
+const SQL = 'INSERT INTO city_explorer (city) VALUES ($1);'
+
+//give SQL query to our pg agent
+client.query(SQL, safeQuery)
+  .then(output =>{
+    response.status(200).json(output);
+  })
+  .catch(error => {response.status(500).send(error)});
+});
 
 // API Routes
 app.get('/', (request, response) => {

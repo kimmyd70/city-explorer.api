@@ -133,13 +133,13 @@ a stupid error!
 
 ### Trello Card #1--database setup
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 30 min
 
-Start time:
+Start time: 8:00pm
 
-Finish time: 
+Finish time: 9:15pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 1 hr 15 min -- probs starting POSTGRES
 
 ### Trello Card #2--check if location exists in dbase
 
