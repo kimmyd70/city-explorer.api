@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS trails;
 -- create table for location in city_explorer DB
 CREATE table location(
     id SERIAL PRIMARY KEY,
-    city VARCHAR(255),
-    latitude VARCHAR(255),
-    longitude VARCHAR(255),
-    display_name VARCHAR(255)
+    city VARCHAR(255)
+    -- latitude VARCHAR(255),
+    -- longitude VARCHAR(255),
+    -- display_name VARCHAR(255)
 
 );
 
