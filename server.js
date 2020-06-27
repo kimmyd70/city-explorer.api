@@ -28,22 +28,22 @@ client.connect()
 //Global vars
 let locations = {};
 
-app.get('/add', (request, response) =>{
-//get info from the front end user input
-const city = request.query.display_name;
+// app.get('/add', (request, response) =>{
+// //get info from the front end user input
+// const city = request.query.display_name;
 
-//create safe query with variables -- very useful if username/pword, etc
-const safeQuery = [city];
+// //create safe query with variables -- very useful if username/pword, etc
+// const safeQuery = [city];
 
-const SQL = 'INSERT INTO city_explorer (city) VALUES ($1);'
+// const SQL = 'INSERT INTO city_explorer (city) VALUES ($1);'
 
-//give SQL query to our pg agent
-client.query(SQL, safeQuery)
-  .then(output =>{
-    response.status(200).json(output);
-  })
-  .catch(error => {response.status(500).send(error)});
-});
+// //give SQL query to our pg agent
+// client.query(SQL, safeQuery)
+//   .then(output =>{
+//     response.status(200).json(output);
+//   })
+//   .catch(error => {response.status(500).send(error)});
+// });
 
 // API Routes
 app.get('/', (request, response) => {
