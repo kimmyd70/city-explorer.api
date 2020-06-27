@@ -63,14 +63,14 @@ app.get('/location', (request,response) => {
 
   //if SQL contains => response(pull from SQL)
   let SQL = `SELECT * FROM location WHERE city=request.query.city`;
-  if (SQL !== ){
-    //return info object
-    console.log('found it');
-    let locationObj = new Location(city);
-    console.log(locationObj);
-    response.status(200).json(locationObj);
+  // if (SQL !== ){
+  //   //return info object
+  //   console.log('found it');
+  //   let locationObj = new Location(city);
+  //   console.log(locationObj);
+  //   response.status(200).json(locationObj);
 
-  }
+  // }
   else {
     console.log('not in DB');
     // let API = `https://us1.locationiq.com/v1/search.php?key=${GEOCODE}&q=${city}&format=json`;
