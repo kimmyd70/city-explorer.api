@@ -30,12 +30,20 @@ let locations = {};
 
 app.get('/add', (request, response) =>{
 //get info from the front end user input
-const city = request.query.display_name;
+// const id = request.query.id;
+const city = request.query.city;
+// const latitude = request.query.latitude;
+// const longitude = request.query.longitude;
+// const display_name = request.query.display_name;
 
 //create safe query with variables -- very useful if username/pword, etc
+// const safeQuery = [id, city, latitude, longitude, display_name];
 const safeQuery = [city];
 
-const SQL = 'INSERT INTO city_explorer (city) VALUES ($1);'
+// const SQL = `INSERT INTO location (city) VALUES ($1, $2, $3, $4, $5);`
+
+const SQL = `INSERT INTO location (city) VALUES ($1);`
+
 
 //give SQL query to our pg agent
 client.query(SQL, safeQuery)
@@ -53,22 +61,36 @@ app.get('/', (request, response) => {
 app.get('/location', (request,response) => {
   let city = request.query.city;
 
-  let API = `https://us1.locationiq.com/v1/search.php?key=${GEOCODE}&q=${city}&format=json`;
+  //if SQL contains => response(pull from SQL)
+  let SQL = `SELECT * FROM location WHERE city=request.query.city`;
+  // if (SQL !== ){
+  //   //return info object
+  //   console.log('found it');
+  //   let locationObj = new Location(city);
+  //   console.log(locationObj);
+  //   response.status(200).json(locationObj);
 
-  superagent.get(API)
-    // .query(queryObject)
-    .then((data) => {
-      let locationObj = new Location(data.body[0], city);
+  // }
+  else {
+    console.log('not in DB');
+    // let API = `https://us1.locationiq.com/v1/search.php?key=${GEOCODE}&q=${city}&format=json`;
+    // superagent.get(API)
+    //   // .query(queryObject)
+    //   .then((data) => {
+    //     let locationObj = new Location(data.body[0], city);
 
-      // save the city for later
-      locations[city] = locationObj;
+    //     // save the city for later
+    //     locations[city] = locationObj;
 
-      // send the city to the user
-      response.status(200).json(locationObj);
-    })
-    .catch(() => {
-      response.status(500).send(console.log('Oops.  We\'re confused. Is that a city?'));
-    });
+    //     // send the city to the user
+    //     response.status(200).json(locationObj);
+    //   })
+    //   .catch(() => {
+    //     response.status(500).send(console.log('Oops.  We\'re confused. Is that a city?'));
+    //   });
+    // const SQL = `INSERT INTO location (city) VALUES ($1);`
+
+  }
 });
 
 
@@ -132,12 +154,12 @@ app.use((error, request, response) => {
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`I\'m listening on ${PORT}`));
 
-
-function Location(obj, city) {
-  this.formatted_query = obj.display_name;
+function Location(city){
+// function Location(obj, city) {
+  // this.formatted_query = obj.display_name;
   this.search_query = city;
-  this.latitude = obj.lat;
-  this.longitude = obj.lon;
+  // this.latitude = obj.lat;
+  // this.longitude = obj.lon;
 }
 
 
