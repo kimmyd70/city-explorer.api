@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 const GEOCODE = process.env.GEOCODE;
 const WEATHERBIT = process.env.WEATHERBIT;
 const HIKING = process.env.HIKING;
+const MOVIES = process.env.MOVIES;
 
 // instance of express and bring in cors (security/permission "key")
 const app = express();
@@ -136,6 +137,26 @@ app.get('/trails', (request,response) => {
 
 });
 
+app.get('/movies', (request, response) =>{
+  let city = request.query.city;
+
+  let API = `https://api.themoviedb.org/3/search/movie?query=${city}&api_key=${MOVIES}`;
+
+  superagent.get(API)
+    .then(item =>{
+      let movies = item.results.map(obj => {
+
+        //build contract obj with constructor
+        return new Movie(obj.title,obj.overview,obj.vote_average, obj.vote_count, obj.poster_path, obj.popularity, obj.release_date)
+      });
+      response.status(200).json(movies);
+    })
+    .catch(() => {
+      response.status(500).send('Sorry, movie data is not available.');
+    });
+
+})
+
 //displays because Yelp and Movies are not built
 app.use('*', (request, response) => {
   response.status(404).send('Ummm....');
@@ -191,4 +212,16 @@ function Trails (name, location, length, stars, star_votes, summary, trail_url, 
   this.conditions = conditions;
   this.condition_date = new Date(conditionDate.slice(0,10)).toDateString();
   this.condition_time = conditionDate.slice(11,19);
+}
+
+function Movie (title, overview, average_votes, total_votes, image_url, popularity, released_on){
+  this.title = title;
+  this.overview = overview;
+  this.average_votes = average_votes;
+  this.total_votes = total_votes;
+  this.image_url = image_url;
+  this.popularity = popularity;
+  this.released_on = released_on;
+
+  console.log(Movie);
 }
