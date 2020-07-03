@@ -1,5 +1,8 @@
 'use strict';
 
+//test variable
+let allMovies = [];
+
 // Load Environment Variables from the .env file
 require('dotenv').config();
 
@@ -138,16 +141,17 @@ app.get('/trails', (request,response) => {
 });
 
 app.get('/movies', (request, response) =>{
-  let city = request.query.city;
+  let city = request.query.search_query;
 
   let API = `https://api.themoviedb.org/3/search/movie?query=${city}&api_key=${MOVIES}`;
 
   superagent.get(API)
-    .then(item =>{
-      let movies = item.results.map(obj => {
+    .then(data =>{
+      let movies = data.body.results.map(obj => {
 
         //build contract obj with constructor
         return new Movie(obj.title,obj.overview,obj.vote_average, obj.vote_count, obj.poster_path, obj.popularity, obj.release_date)
+        // return new Movie('yellow', 'it sucks',0,0,'https:/crap',0,'2020-35-35')
       });
       response.status(200).json(movies);
     })
@@ -155,7 +159,7 @@ app.get('/movies', (request, response) =>{
       response.status(500).send('Sorry, movie data is not available.');
     });
 
-})
+});
 
 //displays because Yelp and Movies are not built
 app.use('*', (request, response) => {
@@ -219,9 +223,8 @@ function Movie (title, overview, average_votes, total_votes, image_url, populari
   this.overview = overview;
   this.average_votes = average_votes;
   this.total_votes = total_votes;
-  this.image_url = image_url;
+  this.image_url = `https://image.tmdb.org/t/p/original/${image_url}` ;
   this.popularity = popularity;
   this.released_on = released_on;
 
-  console.log(Movie);
 }
