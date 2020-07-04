@@ -18,6 +18,7 @@ const GEOCODE = process.env.GEOCODE;
 const WEATHERBIT = process.env.WEATHERBIT;
 const HIKING = process.env.HIKING;
 const MOVIES = process.env.MOVIES;
+const YELP = process.env.YELP;
 
 // instance of express and bring in cors (security/permission "key")
 const app = express();
@@ -151,12 +152,32 @@ app.get('/movies', (request, response) =>{
 
         //build contract obj with constructor
         return new Movie(obj.title,obj.overview,obj.vote_average, obj.vote_count, obj.poster_path, obj.popularity, obj.release_date)
-        // return new Movie('yellow', 'it sucks',0,0,'https:/crap',0,'2020-35-35')
       });
       response.status(200).json(movies);
     })
     .catch(() => {
       response.status(500).send('Sorry, movie data is not available.');
+    });
+
+});
+
+app.get('/yelp', (request, response)=>{
+
+  let city = request.query.search_query;
+
+  let API = `https://api.yelp.com/v3/businesses/search?location=${city}`
+  superagent.get(API)
+  .set('Authorization',`Bearer ${YELP}`)
+    .then(data => {
+      let yelp = data.body.businesses.map(obj =>{
+        
+        // return new Yelp('yelllow', 'image url', 7, 8, 'object url')
+        return new Yelp(obj.name, obj.image_url, obj.price, obj.rating, obj.url)
+      });
+      response.status(200).json(yelp);
+    })
+    .catch(() => {
+      response.status(500).send ('Sorry, Yelp data is unavailable');
     });
 
 });
@@ -223,8 +244,15 @@ function Movie (title, overview, average_votes, total_votes, image_url, populari
   this.overview = overview;
   this.average_votes = average_votes;
   this.total_votes = total_votes;
-  this.image_url = `https://image.tmdb.org/t/p/original/${image_url}` ;
+  this.image_url = `https://image.tmdb.org/t/p/original/${image_url}`  ;
   this.popularity = popularity;
   this.released_on = released_on;
+}
 
+function Yelp (name, image_url, price, rating, url){
+  this.name = name;
+  this.image_url = image_url;
+  this.price = price;
+  this.rating = rating;
+  this.url = url;
 }
