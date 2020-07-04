@@ -161,17 +161,19 @@ app.get('/movies', (request, response) =>{
 
 });
 
+let offset = 0;
+
 app.get('/yelp', (request, response)=>{
 
   let city = request.query.search_query;
 
-  let API = `https://api.yelp.com/v3/businesses/search?location=${city}`
+  console.log('offset', offset, 'page', request.query.page)
+  
+  let API = `https://api.yelp.com/v3/businesses/search?location=${city}&limit=5&offset=${offset}`
   superagent.get(API)
   .set('Authorization',`Bearer ${YELP}`)
     .then(data => {
       let yelp = data.body.businesses.map(obj =>{
-        
-        // return new Yelp('yelllow', 'image url', 7, 8, 'object url')
         return new Yelp(obj.name, obj.image_url, obj.price, obj.rating, obj.url)
       });
       response.status(200).json(yelp);
@@ -180,6 +182,13 @@ app.get('/yelp', (request, response)=>{
       response.status(500).send ('Sorry, Yelp data is unavailable');
     });
 
+    if(offset < 16){
+      offset = offset + 5;
+    }
+    else{
+      offset = 0;
+      
+    }
 });
 
 //displays because Yelp and Movies are not built
